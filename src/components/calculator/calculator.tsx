@@ -36,6 +36,7 @@ type Action =
   | { type: "ADD_DIGIT"; payload: string }
   | { type: "CHOOSE_OPERATION"; payload: string }
   | { type: "CLEAR" }
+  | { type: "CLEAR_ENTRY" }
   | { type: "EVALUATE" }
   | { type: "TOGGLE_SIGN" }
   | { type: "PERCENTAGE" }
@@ -117,6 +118,13 @@ function reducer(state: State, action: Action): State {
 
     case "CLEAR":
       return initialState;
+      
+    case "CLEAR_ENTRY":
+      return {
+        ...state,
+        currentOperand: "0",
+        overwrite: true,
+      };
 
     case "BACKSPACE":
       if (state.overwrite) return { ...state, currentOperand: "0", overwrite: false };
@@ -261,7 +269,7 @@ const Calculator: React.FC<CalculatorProps> = ({ addToHistory, valueFromHistory,
 
         <CalculatorButton gridSpan={1} onClick={() => dispatch({ type: "ADD_DIGIT", payload: "0" })}>0</CalculatorButton>
         <CalculatorButton onClick={() => dispatch({ type: "ADD_DIGIT", payload: "." })}>.</CalculatorButton>
-        <CalculatorButton variant="special" onClick={() => dispatch({ type: "BACKSPACE" })}>
+        <CalculatorButton variant="special" onClick={() => dispatch({ type: "CLEAR_ENTRY" })}>
           <Scissors className="size-5" />
         </CalculatorButton>
         <CalculatorButton variant="action" onClick={handleEvaluate}>=</CalculatorButton>
@@ -278,5 +286,3 @@ const Calculator: React.FC<CalculatorProps> = ({ addToHistory, valueFromHistory,
 };
 
 export default Calculator;
-
-    
