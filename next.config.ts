@@ -7,6 +7,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
   disable: process.env.NODE_ENV === 'development',
 });
 
+const isDev = process.env.NODE_ENV === 'development'
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -38,8 +39,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  ...(isDev && {
+    experimental: {
+      allowedDevOrigins: [
+        "https://*.cluster-nle52mxuvfhlkrzyrq6g2cwb52.cloudworkstations.dev"
+      ],
+    },
+  })
 };
-
-const isDev = process.env.NODE_ENV === 'development'
 
 export default isDev ? nextConfig : withPWA(nextConfig);
