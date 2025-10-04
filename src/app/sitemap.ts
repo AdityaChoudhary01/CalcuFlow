@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 // TODO: Replace with your actual app URL
-const URL = 'https://your-app-url.com';
+const URL = 'https://calcuflow.vercel.app/';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
