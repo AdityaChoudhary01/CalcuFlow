@@ -10,11 +10,11 @@ const calculatorButtonVariants = cva(
   {
     variants: {
       variant: {
-        number: "bg-card/80 text-foreground hover:bg-card",
+        number: "bg-white/10 text-foreground hover:bg-white/20",
         operator: "bg-accent text-accent-foreground hover:bg-accent/90",
         action: "bg-primary text-primary-foreground hover:bg-primary/90 text-3xl",
-        special: "bg-muted text-muted-foreground hover:bg-muted/80",
-        memory: "bg-secondary/70 text-secondary-foreground hover:bg-secondary/90 text-base"
+        special: "bg-white/5 text-muted-foreground hover:bg-white/10",
+        memory: "bg-secondary/10 text-secondary-foreground hover:bg-secondary/20 text-base"
       },
     },
     defaultVariants: {
