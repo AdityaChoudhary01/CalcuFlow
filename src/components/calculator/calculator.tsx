@@ -6,7 +6,7 @@ import CalculatorButton from "./calculator-button";
 import type { HistoryEntry } from "@/app/page";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Sigma } from 'lucide-react';
+import { Sigma, Scissors } from 'lucide-react';
 
 interface CalculatorProps {
   addToHistory: (entry: HistoryEntry) => void;
@@ -43,7 +43,9 @@ type Action =
   | { type: "MEMORY_ADD" }
   | { type: "MEMORY_SUBTRACT" }
   | { type: "MEMORY_RECALL" }
-  | { type: "SET_VALUE"; payload: string };
+  | { type: "SET_VALUE"; payload: string }
+  | { type: "BACKSPACE" };
+
 
 function evaluate({ currentOperand, previousOperand, operation }: Pick<State, 'currentOperand' | 'previousOperand' | 'operation'>): number {
   const prev = parseFloat(previousOperand!);
@@ -116,6 +118,11 @@ function reducer(state: State, action: Action): State {
     case "CLEAR":
       return initialState;
 
+    case "BACKSPACE":
+      if (state.overwrite) return { ...state, currentOperand: "0", overwrite: false };
+      if (state.currentOperand.length === 1) return { ...state, currentOperand: "0" };
+      return { ...state, currentOperand: state.currentOperand.slice(0, -1) };
+
     case "TOGGLE_SIGN":
       return { ...state, currentOperand: (parseFloat(state.currentOperand) * -1).toString() };
 
@@ -171,6 +178,7 @@ const Calculator: React.FC<CalculatorProps> = ({ addToHistory, valueFromHistory,
 
   const handleUnaryOperation = (op: string) => {
     const current = parseFloat(currentOperand);
+    if (isNaN(current)) return;
     let result: number;
     let exp: string;
     switch(op) {
@@ -181,6 +189,7 @@ const Calculator: React.FC<CalculatorProps> = ({ addToHistory, valueFromHistory,
         case 'log': result = Math.log10(current); exp = `log(${currentOperand})`; break;
         case '√': result = Math.sqrt(current); exp = `√(${currentOperand})`; break;
         case 'x!':
+            if (current < 0 || !Number.isInteger(current)) return;
             let f = 1;
             for(let i=1; i<=current; i++) f *= i;
             result = f;
@@ -199,11 +208,6 @@ const Calculator: React.FC<CalculatorProps> = ({ addToHistory, valueFromHistory,
     }
   }
 
-  const handleParenthesis = (p: string) => {
-    // This is a simplified implementation. A real implementation would need a proper parser.
-    dispatch({ type: "ADD_DIGIT", payload: p });
-  };
-
   return (
     <div className="flex flex-col">
       <CalculatorDisplay expression={expression} displayValue={formatOperand(currentOperand)} />
@@ -215,7 +219,7 @@ const Calculator: React.FC<CalculatorProps> = ({ addToHistory, valueFromHistory,
         </Label>
       </div>
 
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-4 gap-3">
         {isScientific && (
             <>
                 <CalculatorButton variant="special" onClick={() => handleUnaryOperation('sin')}>sin</CalculatorButton>
@@ -230,8 +234,8 @@ const Calculator: React.FC<CalculatorProps> = ({ addToHistory, valueFromHistory,
 
                 <CalculatorButton variant="special" onClick={() => handleUnaryOperation('√')}>√</CalculatorButton>
                 <CalculatorButton variant="special" onClick={() => handleUnaryOperation('x!')}>x!</CalculatorButton>
-                <CalculatorButton variant="special" onClick={() => handleParenthesis('(')}>(</CalculatorButton>
-                <CalculatorButton variant="special" onClick={() => handleParenthesis(')')}>)</CalculatorButton>
+                <CalculatorButton variant="special" onClick={() => dispatch({ type: "ADD_DIGIT", payload: '(' })}>(</CalculatorButton>
+                <CalculatorButton variant="special" onClick={() => dispatch({ type: "ADD_DIGIT", payload: ')' })}>)</CalculatorButton>
             </>
         )}
         
@@ -255,19 +259,24 @@ const Calculator: React.FC<CalculatorProps> = ({ addToHistory, valueFromHistory,
         <CalculatorButton onClick={() => dispatch({ type: "ADD_DIGIT", payload: "3" })}>3</CalculatorButton>
         <CalculatorButton variant="operator" onClick={() => dispatch({ type: "CHOOSE_OPERATION", payload: "+" })}>+</CalculatorButton>
 
-        <CalculatorButton gridSpan={2} onClick={() => dispatch({ type: "ADD_DIGIT", payload: "0" })}>0</CalculatorButton>
+        <CalculatorButton gridSpan={1} onClick={() => dispatch({ type: "ADD_DIGIT", payload: "0" })}>0</CalculatorButton>
         <CalculatorButton onClick={() => dispatch({ type: "ADD_DIGIT", payload: "." })}>.</CalculatorButton>
+        <CalculatorButton variant="special" onClick={() => dispatch({ type: "BACKSPACE" })}>
+          <Scissors className="size-5" />
+        </CalculatorButton>
         <CalculatorButton variant="action" onClick={handleEvaluate}>=</CalculatorButton>
       </div>
 
-       <div className="grid grid-cols-4 gap-2 mt-4">
-            <CalculatorButton variant="special" onClick={() => dispatch({ type: "MEMORY_CLEAR" })}>MC</CalculatorButton>
-            <CalculatorButton variant="special" onClick={() => dispatch({ type: "MEMORY_RECALL" })}>MR</CalculatorButton>
-            <CalculatorButton variant="special" onClick={() => dispatch({ type: "MEMORY_ADD" })}>M+</CalculatorButton>
-            <CalculatorButton variant="special" onClick={() => dispatch({ type: "MEMORY_SUBTRACT" })}>M-</CalculatorButton>
+       <div className="grid grid-cols-4 gap-3 mt-3">
+            <CalculatorButton variant="memory" onClick={() => dispatch({ type: "MEMORY_CLEAR" })}>MC</CalculatorButton>
+            <CalculatorButton variant="memory" onClick={() => dispatch({ type: "MEMORY_RECALL" })}>MR</CalculatorButton>
+            <CalculatorButton variant="memory" onClick={() => dispatch({ type: "MEMORY_ADD" })}>M+</CalculatorButton>
+            <CalculatorButton variant="memory" onClick={() => dispatch({ type: "MEMORY_SUBTRACT" })}>M-</CalculatorButton>
         </div>
     </div>
   );
 };
 
 export default Calculator;
+
+    

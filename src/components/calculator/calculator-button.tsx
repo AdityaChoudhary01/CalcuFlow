@@ -6,14 +6,15 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 const calculatorButtonVariants = cva(
-  "h-16 text-2xl font-medium rounded-2xl transition-transform duration-100 active:scale-95 shadow-lg border-b-4",
+  "h-16 text-2xl font-semibold rounded-2xl transition-all duration-150 active:scale-95 active:shadow-inner-sm shadow-md",
   {
     variants: {
       variant: {
-        number: "bg-secondary/80 border-secondary hover:bg-secondary text-secondary-foreground",
-        operator: "bg-accent border-accent/70 hover:bg-accent/90 text-accent-foreground",
-        action: "bg-primary border-primary/70 hover:bg-primary/90 text-primary-foreground",
-        special: "bg-muted/80 border-muted hover:bg-muted text-muted-foreground",
+        number: "bg-card/80 text-foreground hover:bg-card",
+        operator: "bg-accent text-accent-foreground hover:bg-accent/90",
+        action: "bg-primary text-primary-foreground hover:bg-primary/90 text-3xl",
+        special: "bg-muted text-muted-foreground hover:bg-muted/80",
+        memory: "bg-secondary/70 text-secondary-foreground hover:bg-secondary/90 text-base"
       },
     },
     defaultVariants: {
@@ -27,7 +28,7 @@ interface CalculatorButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEle
 }
 
 const CalculatorButton = React.forwardRef<HTMLButtonElement, CalculatorButtonProps>(
-  ({ className, variant, gridSpan, ...props }, ref) => {
+  ({ className, variant, gridSpan, children, ...props }, ref) => {
     const gridColumn = gridSpan ? `span ${gridSpan} / span ${gridSpan}` : undefined;
     return (
       <Button
@@ -35,10 +36,14 @@ const CalculatorButton = React.forwardRef<HTMLButtonElement, CalculatorButtonPro
         ref={ref}
         style={{ gridColumn }}
         {...props}
-      />
+      >
+        {children}
+      </Button>
     );
   }
 );
 CalculatorButton.displayName = 'CalculatorButton';
 
 export default CalculatorButton;
+
+    
