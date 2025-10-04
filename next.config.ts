@@ -41,11 +41,14 @@ const nextConfig: NextConfig = {
   },
   ...(isDev && {
     experimental: {
-      allowedDevOrigins: [
-        "https://*.cluster-nle52mxuvfhlkrzyrq6g2cwb52.cloudworkstations.dev"
-      ],
+      // This is now empty, but we keep it here for future experimental features.
     },
+    // Add allowedDevOrigins here at the top level for development
+    allowedDevOrigins: [
+      "https://*.cluster-nle52mxuvfhlkrzyrq6g2cwb52.cloudworkstations.dev"
+    ],
   })
 };
 
+// Only apply PWA plugin in production
 export default isDev ? nextConfig : withPWA(nextConfig);

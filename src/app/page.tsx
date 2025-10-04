@@ -50,7 +50,7 @@ export default function Home() {
                 <CalculatorIcon className="size-4" /> Calculator
               </TabsTrigger>
               <TabsTrigger value="history" className="h-full text-xs sm:text-sm gap-1.5 data-[state=active]:bg-primary/20 data-[state=active]:text-primary-foreground rounded-lg transition-all duration-300">
-                <Ruler className="size-4" /> History
+                <History className="size-4" /> History
               </TabsTrigger>
               <TabsTrigger value="converter" className="h-full text-xs sm:text-sm gap-1.5 data-[state=active]:bg-primary/20 data-[state=active]:text-primary-foreground rounded-lg transition-all duration-300">
                 <Ruler className="size-4" /> Converter
