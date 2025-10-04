@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 const calculatorButtonVariants = cva(
-  "h-16 text-2xl font-semibold rounded-2xl transition-all duration-150 active:scale-95 active:shadow-inner-sm shadow-md",
+  "h-16 text-2xl font-semibold rounded-2xl transition-all duration-150 active:scale-95 active:shadow-inner-sm shadow-md hover:shadow-lg hover:-translate-y-0.5",
   {
     variants: {
       variant: {
@@ -45,5 +45,3 @@ const CalculatorButton = React.forwardRef<HTMLButtonElement, CalculatorButtonPro
 CalculatorButton.displayName = 'CalculatorButton';
 
 export default CalculatorButton;
-
-    

@@ -91,14 +91,22 @@ export default {
             height: '0',
           },
         },
+        'animate-in': {
+          from: { opacity: '0', transform: 'translateY(10px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        aurora: {
+          from: { 'background-position': '50% 50%, 50% 50%' },
+          to: { 'background-position': '350% 50%, 350% 50%' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'animate-in': 'animate-in 0.3s ease-out forwards',
+        aurora: 'aurora 15s linear infinite',
       },
     },
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;
-
-    

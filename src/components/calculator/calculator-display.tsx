@@ -20,7 +20,8 @@ const CalculatorDisplay: React.FC<CalculatorDisplayProps> = ({ expression, displ
     <div className="bg-transparent rounded-xl p-4 mb-4 text-right break-all min-h-[128px] flex flex-col justify-end">
       <div className="text-muted-foreground text-xl h-8 opacity-70 transition-opacity duration-300">{expression || ' '}</div>
       <div 
-        className="text-foreground font-bold transition-all duration-200"
+        key={displayValue}
+        className="text-foreground font-bold transition-all duration-200 animate-in"
         style={{ fontSize: displayFontSize, lineHeight: '1.1' }}
       >
         {displayValue}
