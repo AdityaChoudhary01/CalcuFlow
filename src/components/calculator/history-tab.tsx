@@ -3,7 +3,7 @@
 import type { HistoryEntry } from "@/app/page";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Trash2, Copy } from 'lucide-react';
+import { Trash2, History } from 'lucide-react';
 
 interface HistoryTabProps {
   history: HistoryEntry[];
