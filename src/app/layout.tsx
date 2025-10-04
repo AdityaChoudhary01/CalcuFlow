@@ -21,7 +21,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="calcuflow-theme">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} storageKey="calcuflow-theme">
           {children}
           <Toaster />
         </ThemeProvider>

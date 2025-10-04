@@ -38,21 +38,21 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary flex flex-col items-center justify-center p-2 sm:p-4">
-      <Card className="w-full max-w-[360px] rounded-2xl shadow-2xl overflow-hidden border-2 border-card/50 backdrop-blur-sm bg-card/80">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-2 sm:p-4">
+      <Card className="w-full max-w-[380px] rounded-3xl shadow-2xl overflow-hidden border-2 border-card/50 bg-card/70 backdrop-blur-xl">
         <CardHeader className="p-4">
           <Header />
         </CardHeader>
         <CardContent className="p-0">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 bg-muted/50 rounded-none h-14">
-              <TabsTrigger value="calculator" className="h-full text-xs sm:text-sm gap-1 data-[state=active]:bg-primary/10 data-[state=active]:text-primary">
+            <TabsList className="grid w-full grid-cols-3 bg-transparent rounded-none h-14 px-2">
+              <TabsTrigger value="calculator" className="h-full text-xs sm:text-sm gap-1.5 data-[state=active]:bg-primary/20 data-[state=active]:text-primary-foreground rounded-lg">
                 <CalculatorIcon className="size-4" /> Calculator
               </TabsTrigger>
-              <TabsTrigger value="history" className="h-full text-xs sm:text-sm gap-1 data-[state=active]:bg-primary/10 data-[state=active]:text-primary">
+              <TabsTrigger value="history" className="h-full text-xs sm:text-sm gap-1.5 data-[state=active]:bg-primary/20 data-[state=active]:text-primary-foreground rounded-lg">
                 <History className="size-4" /> History
               </TabsTrigger>
-              <TabsTrigger value="converter" className="h-full text-xs sm:text-sm gap-1 data-[state=active]:bg-primary/10 data-[state=active]:text-primary">
+              <TabsTrigger value="converter" className="h-full text-xs sm:text-sm gap-1.5 data-[state=active]:bg-primary/20 data-[state=active]:text-primary-foreground rounded-lg">
                 <Ruler className="size-4" /> Converter
               </TabsTrigger>
             </TabsList>
