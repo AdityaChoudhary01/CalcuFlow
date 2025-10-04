@@ -5,7 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 
 const APP_NAME = "CalcuFlow";
 const APP_DESCRIPTION = "An ultra-modern calculator app with AI-powered unit conversions, scientific functions, and a sleek, installable PWA interface.";
-const APP_URL = "https://your-app-url.com"; // TODO: Replace with your actual app URL
+const APP_URL = "https://calcuflow.vercel.app/"; // TODO: Replace with your actual app URL
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
